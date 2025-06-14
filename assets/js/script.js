@@ -144,14 +144,23 @@ const pages = document.querySelectorAll("[data-page]");
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
 
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
+    // On normalise le texte en minuscules et sans espaces
+    const normalized = this.innerHTML.toLowerCase().replace(/\s/g, '');
+
+    for (let j = 0; j < pages.length; j++) {
+      if (normalized === pages[j].dataset.page.toLowerCase()) {
+        pages[j].classList.add("active");
+
+        // On applique également l'état actif au lien actif
+        navigationLinks[j].classList.add("active");
+
         window.scrollTo(0, 0);
       } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
+        pages[j].classList.remove("active");
+
+        // On retire l'état actif des autres
+        navigationLinks[j].classList.remove("active");
+
       }
     }
 
